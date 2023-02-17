@@ -1,8 +1,8 @@
-# RailsReactScaffold
+# Rails React Scaffold
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rails_react_scaffold`. To experiment with that code, run `bin/console` for an interactive prompt.
+This gem will allow you create scaffold for Ruby on Rails applications that use React as their front end. It basically overrides the default Views in the rails scaffold generator to generate a mount point HTML file and an associated React component for all the default Rails views (index, show, new, edit).
 
-TODO: Delete this and the text above, and describe your gem
+**Note: This gem is in its early days of development and right now only supports generating the views. Thus you have to have an existing model to use this. In the future, we will program an entire scaffold generator.**
 
 ## Installation
 
@@ -22,7 +22,26 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+At this point, this generator only generates VIEWS and assumes a model is in place. So at this point, use the standard model andd controller generators that come pre-built with Rails or build your own, then use this generator.
+
+### Basic Usage
+
+```
+rails g rails_react_scaffold:views MODEL_NAME
+```
+
+### Options
+
+|Option|Description|Default|
+|------|-----------|-------|
+|`--component_dir`|The directory where the generated components will be placed|app/javascript/components|
+
+
+### Example Usage
+
+```
+rails g rails_react_scaffold:views Book --component_dir app/javascript/src
+```
 
 ## Development
 

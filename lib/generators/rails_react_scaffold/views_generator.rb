@@ -11,9 +11,11 @@ module RailsReactScaffold
 
       desc "Generates views for the model with the given NAME."
 
+      class_option :component_dir, type: :string, default: "app/javascript/components", desc: "Specify components directory"
+
       def copy_view_files
         views_directory_path = File.join("app/views", controller_file_path)
-        react_components_directory_path = File.join("app/javascript/components", controller_file_path)
+        react_components_directory_path = File.join(options['component_dir'], controller_file_path)
         empty_directory views_directory_path
 
         view_files.each do |file_name|
