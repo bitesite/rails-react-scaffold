@@ -39,6 +39,7 @@ const <%= plural_name.camelize %>IndexPage = () => {
           <table>
             <thead><% viewable_attributes.each do |viewable_attribute| %>
               <th><%= viewable_attribute.name.titleize%></th><% end %>
+              <th></th>
             </thead>
             <tbody>
               {
@@ -46,6 +47,7 @@ const <%= plural_name.camelize %>IndexPage = () => {
                   return (
                     <tr><% viewable_attributes.each do |viewable_attribute| %>
                       <td>{<%= "#{singular_name.camelize(:lower)}.#{viewable_attribute.name}" %>}</td><% end %>
+                      <td><a href={`/<%= plural_name %>/${<%= singular_name.camelize(:lower) %>.id}`}>View</a></td>
                     </tr>
                   );
                 })

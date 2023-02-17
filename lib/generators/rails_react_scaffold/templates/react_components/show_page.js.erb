@@ -1,6 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-const <%= plural_name.camelize %>ShowPage = () => {
+const <%= plural_name.camelize %>ShowPage = ({ <%= singular_name.camelize(:lower)%>Id }) => {
+
+  const [loading, setLoading] = useState(true);
+  const [<%= singular_name.camelize(:lower) %>, set<%= singular_name.camelize %>] = useState();
+
+  const load<%= singular_name.camelize %> = () => {
+    setLoading(true);
+    <% if options[:ajax_engine] == 'fetch' %>
+    /* Fetch coming soon */
+    <% end %>
+    <% if options[:ajax_engine] == 'jquery' %>$.getJSON(`/<%= plural_name %>/${<%= singular_name.camelize(:lower)%>Id}`, (results) => {
+      set<%= singular_name.camelize %>(results);
+      setLoading(false);
+    });<% end %>
+    <% if options[:ajax_engine] == 'axios' %>
+    /* Axios coming soon */
+    <% end %>
+  };
+
+  useEffect(() => {
+    load<%= singular_name.camelize %>();
+  }, []);
+
+  return (
+    <div>
+      <h1><%= singular_name.titleize %> {<%= singular_name.camelize(:lower)%>Id}</h1>
+      {
+        loading ?
+          "Loading..."
+        :
+          <>
+            <% viewable_attributes.each do |viewable_attribute| %>
+            <p>
+              <b><%= viewable_attribute.name.titleize %></b>: {<%= "#{singular_name.camelize(:lower)}.#{viewable_attribute.name}" %>}
+            </p><% end %>
+          </>
+      }
+      <div>
+        <a href="/<%= plural_name %>">Back to <%= plural_name %></a>
+      </div>
+    </div>
+  );
 };
 
 <% if options['use_remount'] %>
@@ -10,7 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const mountPoint = document.getElementById('<%= "#{plural_name}-show-page-mount-point" %>');
   
   if(mountPoint) {
-    ReactDOM.render(<<%= "#{plural_name.camelize}ShowPage" %> />, mountPoint);
+    const <%= singular_name %>Id = parseInt(mountPoint.dataset.<%= singular_name.camelize(:lower) %>Id);
+    ReactDOM.render(<<%= "#{plural_name.camelize}ShowPage" %> <%= singular_name %>Id={<%= singular_name %>Id} />, mountPoint);
   }
 });
 <% end %>
