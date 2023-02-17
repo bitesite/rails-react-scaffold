@@ -38,7 +38,7 @@ const <%= plural_name.camelize %>ShowPage = ({ <%= singular_name.camelize(:lower
           </>
       }
       <div>
-        <a href="/<%= plural_name %>">Back to <%= plural_name %></a>
+        <a href={`/<%= plural_name %>/${<%= singular_name.camelize(:lower) %>Id}/edit`}>Edit</a> | <a href="/<%= plural_name %>">Back to <%= plural_name %></a>
       </div>
     </div>
   );

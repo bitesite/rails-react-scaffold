@@ -6,6 +6,7 @@ const <%= plural_name.camelize %>EditPage = ({ <%= singular_name.camelize(:lower
 
   return (
     <div>
+      <h1>Editing <%= singular_name %> {<%= singular_name.camelize(:lower)%>Id}</h1>
       <<%= plural_name.camelize %>Form <%= singular_name.camelize(:lower) %>Id={<%= singular_name.camelize(:lower)%>Id} />
     </div>
   );
@@ -18,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const mountPoint = document.getElementById('<%= "#{plural_name}-edit-page-mount-point" %>');
   
   if(mountPoint) {
-    ReactDOM.render(<<%= "#{plural_name.camelize}EditPage" %> />, mountPoint);
+    const <%= singular_name %>Id = parseInt(mountPoint.dataset.<%= singular_name.camelize(:lower) %>Id);
+    ReactDOM.render(<<%= "#{plural_name.camelize}EditPage" %> <%= singular_name %>Id={<%= singular_name %>Id} />, mountPoint);
   }
 });
 <% end %>

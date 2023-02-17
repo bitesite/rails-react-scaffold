@@ -1,12 +1,20 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const <%= plural_name.camelize %>Form = ({ <%= singular_name.camelize(:lower)%>Id }) => {
 
+  const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   <% editable_attributes.each do |attribute| %>
   const [<%= attribute.name.camelize(:lower) %>, <%= "set#{attribute.name.camelize}" %>] = useState();
   <% end %>
+
+  const load<%= singular_name.camelize %> = () => {
+    if (<%= singular_name.camelize(:lower)%>Id) {
+    } else {
+      setLoading(false);
+    }
+  }
 
   const handleSubmit = () => {
     setSubmitting(true);
@@ -45,17 +53,28 @@ const <%= plural_name.camelize %>Form = ({ <%= singular_name.camelize(:lower)%>I
     <% end %>
   };
 
+  useEffect(() => {
+    load<%= singular_name.camelize %>();
+  }, []);
+
   return (
     <div>
-      <% editable_attributes.each do |attribute| %>
-      <div className="field">
-        <label><%= attribute.name.titleize %></label>
-        <input type="text" value={<%= attribute.name.camelize(:lower) %>} onChange={(e) => set<%= attribute.name.camelize %>(e.target.value)} />
-      </div>
-      <% end %>
-      <div className="actions">
-        <input type="submit" value={submitting ? 'Submitting...' : 'Submit'} onClick={handleSubmit} />
-      </div>
+      {
+        loading ?
+          "Loading.."
+        :
+        <>
+          <% editable_attributes.each do |attribute| %>
+          <div className="field">
+            <label><%= attribute.name.titleize %></label>
+            <input type="text" value={<%= attribute.name.camelize(:lower) %>} onChange={(e) => set<%= attribute.name.camelize %>(e.target.value)} />
+          </div>
+          <% end %>
+          <div className="actions">
+            <input type="submit" value={submitting ? 'Submitting...' : 'Submit'} onClick={handleSubmit} />
+          </div>
+        </>
+      }
     </div>
   );
 };
