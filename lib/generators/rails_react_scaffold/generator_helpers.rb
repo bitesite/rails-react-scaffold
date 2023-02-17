@@ -2,7 +2,7 @@ module RailsReactScaffold
   module Generators
     # Some helpers for generating scaffolding
     module GeneratorHelpers
-      attr_accessor :options, :attributes
+      attr_accessor :options, :viewable_attributes, :editable_attributes
 
       private
 
@@ -14,15 +14,30 @@ module RailsReactScaffold
         File.exist?("#{Rails.root}/app/models/#{singular_name}.rb")
       end
 
-      def model_columns_for_attributes
-        class_name.constantize.columns.reject do |column|
-          column.name.to_s =~ /^(id|user_id|created_at|updated_at)$/
-        end
+      def model_columns_for_viewable_attributes
+        class_name.constantize.columns
       end
 
+      def viewable_attributes
+        viewable_attributes ||= if model_exists?
+          model_columns_for_viewable_attributes.map do |column|
+              Rails::Generators::GeneratedAttribute.new(column.name.to_s, column.type.to_s)
+            end
+          else
+            []
+          end
+      end
+
+      def model_columns_for_editable_attributes
+        class_name.constantize.columns.reject do |column|
+          column.name.to_s =~ /^(id|created_at|updated_at)$/
+        end
+      end
+      
+
       def editable_attributes
-        attributes ||= if model_exists?
-                          model_columns_for_attributes.map do |column|
+        editable_attributes ||= if model_exists?
+                        model_columns_for_editable_attributes.map do |column|
                             Rails::Generators::GeneratedAttribute.new(column.name.to_s, column.type.to_s)
                           end
                         else
@@ -48,6 +63,11 @@ module RailsReactScaffold
 
       def view_files
         actions = %w(index show new edit)
+        actions
+      end
+
+      def json_files
+        actions = %w(index show)
         actions
       end
 

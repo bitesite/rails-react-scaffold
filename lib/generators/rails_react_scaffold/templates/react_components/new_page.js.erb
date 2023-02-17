@@ -1,4 +1,6 @@
-import <%= plural_name.camelize %>Form from '../<%= plural_name %>_form.js';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import <%= plural_name.camelize %>Form from './<%= plural_name %>_form';
 
 const <%= plural_name.camelize %>NewPage = () => {
 
@@ -8,3 +10,15 @@ const <%= plural_name.camelize %>NewPage = () => {
     </div>
   );
 };
+
+<% if options['use_remount'] %>
+/* REMOUNT COMING SOON */
+<% else %>
+document.addEventListener('DOMContentLoaded', () => {
+  const mountPoint = document.getElementById('<%= "#{plural_name}-new-page-mount-point" %>');
+  
+  if(mountPoint) {
+    ReactDOM.render(<<%= "#{plural_name.camelize}NewPage" %> />, mountPoint);
+  }
+});
+<% end %>

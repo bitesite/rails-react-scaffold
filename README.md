@@ -32,9 +32,15 @@ rails g rails_react_scaffold:views MODEL_NAME
 
 ### Options
 
-|Option|Description|Default|
-|------|-----------|-------|
-|`--component_dir`|The directory where the generated components will be placed|app/javascript/components|
+|Option|Type|Description|Default|
+|------|----|-----------|-------|
+|`component_ext`|string|The file extension to use for generated react components. (js, jsx)|`js`|
+|`component_dir`|string|The directory where the generated components will be placed|`app/javascript/components`|
+|`ajax_engine`|string|What you want to use to make your Ajax calls (fetch, jQuery, axios)|`fetch`|
+|`json_engine`|string|What to use to generate your JSON responses (jbuilder, rabl)|`jbuilder`|
+|`use_remount`|boolean|If you want to use Remount to mount your components.|`false`|
+|`use_webpacker`|boolean|If you want to use javascript_pack_tag to include your JS in your ERB files.|`false`|
+|`use_webpacker_chunks`|boolean|If you want use javascript_packs_with_chunks_tag to include your JS in your ERB files.|`false`|
 
 
 ### Example Usage

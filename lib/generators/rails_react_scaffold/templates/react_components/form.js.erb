@@ -1,13 +1,48 @@
+import React from 'react';
 import { useState } from 'react';
 
 const <%= plural_name.camelize %>Form = ({ <%= singular_name.camelize(:lower)%>Id }) => {
 
+  const [submitting, setSubmitting] = useState(false);
   <% editable_attributes.each do |attribute| %>
-  const [<%= attribute.name.camelize(:lower)  %>, <%= "set#{attribute.name.camelize}" %>] = useState();
+  const [<%= attribute.name.camelize(:lower) %>, <%= "set#{attribute.name.camelize}" %>] = useState();
   <% end %>
 
   const handleSubmit = () => {
+    setSubmitting(true);
+    <% if options[:ajax_engine] == 'fetch' %>
+    /* Fetch coming soon */
+    <% end %>
+    <% if options[:ajax_engine] == 'jquery' %>
+    let method = 'POST';
+    let url = '/<%= plural_name %>';
+    let redirectUrl = '/<%= plural_name%>';
 
+    if (<%= singular_name.camelize(:lower)%>Id) {
+      method = 'PUT';
+      url = `/<%= plural_name %>/${<%= singular_name.camelize(:lower)%>Id}`;
+      redirectUrl = `/<%= plural_name %>/${<%= singular_name.camelize(:lower)%>Id}`;
+    }
+
+    $.ajax({
+      url,
+      method,
+      data: {
+        <%= singular_name %>: {
+          <% editable_attributes.each do |attribute| %>
+          <%= attribute.name %>: <%= attribute.name.camelize(:lower) %>,<% end %>
+        }
+      },
+      dataType: 'JSON',
+      success: () => {
+        window.location.href = redirectUrl;
+      },
+      error: () => {}
+    });
+    <% end %>
+    <% if options[:ajax_engine] == 'axios' %>
+    /* Axios coming soon */
+    <% end %>
   };
 
   return (
@@ -19,8 +54,10 @@ const <%= plural_name.camelize %>Form = ({ <%= singular_name.camelize(:lower)%>I
       </div>
       <% end %>
       <div className="actions">
-        <input type="submit" onClick={handleSubmit} />
+        <input type="submit" value={submitting ? 'Submitting...' : 'Submit'} onClick={handleSubmit} />
       </div>
     </div>
   );
 };
+
+export default <%= plural_name.camelize %>Form;
