@@ -22,22 +22,23 @@ Or install it yourself as:
 
 ## Usage
 
-At this point, this generator only generates VIEWS and assumes a model is in place. So at this point, use the standard model andd controller generators that come pre-built with Rails or build your own, then use this generator.
+At this point, this generator only generates VIEWS and assumes a model is in place. So at this point, use the standard model generator that comes pre-built with Rails or code your own model, then use this generator.
 
 ### Basic Usage
 
 ```
-rails g rails_react_scaffold:views MODEL_NAME
+rails g rails_react_scaffold:controller MODEL_NAME
 ```
 
 ### Options
 
 |Option|Type|Description|Default|
 |------|----|-----------|-------|
-|`component_ext`|string|The file extension to use for generated react components. (js, jsx)|`js`|
 |`component_dir`|string|The directory where the generated components will be placed|`app/javascript/components`|
+|`component_ext`|string|The file extension to use for generated react components. (js, jsx)|`js`|
 |`ajax_engine`|string|What you want to use to make your Ajax calls (fetch, jQuery, axios)|`fetch`|
 |`json_engine`|string|What to use to generate your JSON responses (jbuilder, rabl)|`jbuilder`|
+|`use_cancan`|boolean|If you want to load and authorize resources through CanCan(Can).|`false`|
 |`use_remount`|boolean|If you want to use Remount to mount your components.|`false`|
 |`use_webpacker`|boolean|If you want to use javascript_pack_tag to include your JS in your ERB files.|`false`|
 |`use_webpacker_chunks`|boolean|If you want use javascript_packs_with_chunks_tag to include your JS in your ERB files.|`false`|
