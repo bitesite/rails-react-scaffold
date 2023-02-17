@@ -21,6 +21,27 @@ const <%= plural_name.camelize %>IndexPage = () => {
     <% end %>
   };
 
+  const destroy = (<%= singular_name.camelize(:lower) %>Id) => {
+    if (confirm('Are you sure?')) {
+      <% if options[:ajax_engine] == 'fetch' %>
+      /* Fetch coming soon */
+      <% end %>
+      <% if options[:ajax_engine] == 'jquery' %>
+        $.ajax({
+          url: `/<%= plural_name %>/${<%= singular_name.camelize(:lower) %>Id}`,
+          method: 'DELETE',
+          success: () => {
+            load<%= plural_name.camelize%>();
+          },
+          error: () => {},
+        });
+      <% end %>
+      <% if options[:ajax_engine] == 'axios' %>
+      /* Axios coming soon */
+      <% end %>
+    }
+  }
+
   useEffect(() => {
     load<%= plural_name.camelize%>();
   }, []);
@@ -37,20 +58,26 @@ const <%= plural_name.camelize %>IndexPage = () => {
           "Loading..."
         :
           <table>
-            <thead><% viewable_attributes.each do |viewable_attribute| %>
-              <th><%= viewable_attribute.name.titleize%></th><% end %>
-              <th></th>
+            <thead>
+              <tr><% viewable_attributes.each do |viewable_attribute| %>
+                <th><%= viewable_attribute.name.titleize%></th><% end %>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
             </thead>
             <tbody>
               {
-                <%= plural_name.camelize(:lower) %>.map((<%= singular_name.camelize(:lower) %>) => {
-                  return (
-                    <tr><% viewable_attributes.each do |viewable_attribute| %>
+                <%= plural_name.camelize(:lower) %>.map((<%= singular_name.camelize(:lower) %>) => 
+                  (
+                    <tr key={<%= singular_name.camelize(:lower) %>.id}><% viewable_attributes.each do |viewable_attribute| %>
                       <td>{<%= "#{singular_name.camelize(:lower)}.#{viewable_attribute.name}" %>}</td><% end %>
-                      <td><a href={`/<%= plural_name %>/${<%= singular_name.camelize(:lower) %>.id}`}>View</a></td>
+                      <td><a href={`/<%= plural_name %>/${<%= singular_name.camelize(:lower) %>.id}`}>Show</a></td>
+                      <td><a href={`/<%= plural_name %>/${<%= singular_name.camelize(:lower) %>.id}/edit`}>Edit</a></td>
+                      <td><a href='#' onClick={(e) => { e.preventDefault(); destroy(<%= singular_name.camelize(:lower) %>.id); }}>Destroy</a></td>
                     </tr>
-                  );
-                })
+                  )
+                )
               }
             </tbody>
           </table>

@@ -10,8 +10,8 @@ const <%= plural_name.camelize %>ShowPage = ({ <%= singular_name.camelize(:lower
     <% if options[:ajax_engine] == 'fetch' %>
     /* Fetch coming soon */
     <% end %>
-    <% if options[:ajax_engine] == 'jquery' %>$.getJSON(`/<%= plural_name %>/${<%= singular_name.camelize(:lower)%>Id}`, (results) => {
-      set<%= singular_name.camelize %>(results);
+    <% if options[:ajax_engine] == 'jquery' %>$.getJSON(`/<%= plural_name %>/${<%= singular_name.camelize(:lower)%>Id}`, (result) => {
+      set<%= singular_name.camelize %>(result);
       setLoading(false);
     });<% end %>
     <% if options[:ajax_engine] == 'axios' %>
@@ -38,7 +38,7 @@ const <%= plural_name.camelize %>ShowPage = ({ <%= singular_name.camelize(:lower
           </>
       }
       <div>
-        <a href={`/<%= plural_name %>/${<%= singular_name.camelize(:lower) %>Id}/edit`}>Edit</a> | <a href="/<%= plural_name %>">Back to <%= plural_name %></a>
+        <a href="/<%= plural_name %>">Back to <%= plural_name %></a>
       </div>
     </div>
   );
