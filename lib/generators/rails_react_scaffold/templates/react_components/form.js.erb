@@ -11,6 +11,11 @@ const <%= plural_name.camelize %>Form = ({ <%= singular_name.camelize(:lower)%>I
 
   const load<%= singular_name.camelize %> = () => {
     if (<%= singular_name.camelize(:lower)%>Id) {
+      $.getJSON(`/<%= plural_name %>/${<%= singular_name.camelize(:lower)%>Id}`, (result) => {
+        <% editable_attributes.each do |attribute| %><%= "set#{attribute.name.camelize}" %>(result.<%= attribute.name %>);
+        <% end %>
+        setLoading(false);
+      });
     } else {
       setLoading(false);
     }
