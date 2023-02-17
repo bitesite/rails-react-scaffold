@@ -1,0 +1,26 @@
+import { useState } from 'react';
+
+const <%= plural_name.camelize %>Form = ({ <%= singular_name.camelize(:lower)%>Id }) => {
+
+  <% editable_attributes.each do |attribute| %>
+  const [<%= attribute.name.camelize(:lower)  %>, <%= "set#{attribute.name.camelize}" %>] = useState();
+  <% end %>
+
+  const handleSubmit = () => {
+
+  };
+
+  return (
+    <div>
+      <% editable_attributes.each do |attribute| %>
+      <div className="field">
+        <label><%= attribute.name.titleize %></label>
+        <input type="text" value={<%= attribute.name.camelize(:lower) %>} onChange={(e) => set<%= attribute.name.camelize %>(e.target.value)} />
+      </div>
+      <% end %>
+      <div className="actions">
+        <input type="submit" onClick={handleSubmit} />
+      </div>
+    </div>
+  );
+};

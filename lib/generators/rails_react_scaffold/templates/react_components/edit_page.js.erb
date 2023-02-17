@@ -1,0 +1,10 @@
+import <%= plural_name.camelize %>Form from '../<%= plural_name %>_form.js';
+
+const <%= plural_name.camelize %>EditPage = ({ <%= singular_name.camelize(:lower)%>Id }) => {
+
+  return (
+    <div>
+      <<%= plural_name.camelize %>Form <%= singular_name.camelize(:lower) %>Id={<%= singular_name.camelize(:lower)%>Id} />
+    </div>
+  );
+};
