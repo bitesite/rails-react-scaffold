@@ -9,24 +9,26 @@ const <%= plural_name.camelize %>IndexPage = () => {
 
   const load<%= plural_name.camelize%> = () => {
     setLoading(true);
-    <% if options[:ajax_engine] == 'fetch' %>
+    <%- if options[:ajax_engine] == 'fetch' -%>
     /* Fetch coming soon */
-    <% end %>
-    <% if options[:ajax_engine] == 'jquery' %>$.getJSON('/<%= plural_name %>', (results) => {
+    <%- end -%>
+    <%- if options[:ajax_engine] == 'jquery' %>
+    $.getJSON('/<%= plural_name %>', (results) => {
       set<%= plural_name.camelize %>(results);
       setLoading(false);
-    });<% end %>
-    <% if options[:ajax_engine] == 'axios' %>
+    });
+    <%- end -%>
+    <%- if options[:ajax_engine] == 'axios' -%>
     /* Axios coming soon */
-    <% end %>
+    <%- end -%>
   };
 
   const destroy = (<%= singular_name.camelize(:lower) %>Id) => {
     if (confirm('Are you sure?')) {
-      <% if options[:ajax_engine] == 'fetch' %>
+      <%- if options[:ajax_engine] == 'fetch' -%>
       /* Fetch coming soon */
-      <% end %>
-      <% if options[:ajax_engine] == 'jquery' %>
+      <%- end -%>
+      <%- if options[:ajax_engine] == 'jquery' -%>
         $.ajax({
           url: `/<%= plural_name %>/${<%= singular_name.camelize(:lower) %>Id}`,
           method: 'DELETE',
@@ -35,10 +37,10 @@ const <%= plural_name.camelize %>IndexPage = () => {
           },
           error: () => {},
         });
-      <% end %>
-      <% if options[:ajax_engine] == 'axios' %>
+      <%- end -%>
+      <%- if options[:ajax_engine] == 'axios' -%>
       /* Axios coming soon */
-      <% end %>
+      <%- end -%>
     }
   }
 
@@ -87,9 +89,9 @@ const <%= plural_name.camelize %>IndexPage = () => {
   );
 };
 
-<% if options['use_remount'] %>
+<%- if options['use_remount'] -%>
 /* REMOUNT COMING SOON */
-<% else %>
+<%- else -%>
 document.addEventListener('DOMContentLoaded', () => {
   const mountPoint = document.getElementById('<%= "#{plural_name}-index-page-mount-point" %>');
   
@@ -97,4 +99,4 @@ document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(<<%= "#{plural_name.camelize}IndexPage" %> />, mountPoint);
   }
 });
-<% end %>
+<%- end -%>

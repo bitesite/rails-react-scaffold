@@ -12,9 +12,9 @@ const <%= plural_name.camelize %>NewPage = () => {
   );
 };
 
-<% if options['use_remount'] %>
+<%- if options['use_remount'] -%>
 /* REMOUNT COMING SOON */
-<% else %>
+<%- else -%>
 document.addEventListener('DOMContentLoaded', () => {
   const mountPoint = document.getElementById('<%= "#{plural_name}-new-page-mount-point" %>');
   
@@ -22,4 +22,4 @@ document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(<<%= "#{plural_name.camelize}NewPage" %> />, mountPoint);
   }
 });
-<% end %>
+<%- end -%>

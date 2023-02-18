@@ -1,9 +1,15 @@
 class <%= controller_class_name %>Controller < ApplicationController
-  <% if options[:use_cancan] %>load_and_authorize_resource<% else %>before_action :set_<%= singular_name %>, only: [:show, :edit, :destroy]<% end %>
+  <%- if options[:use_cancan] -%>
+  load_and_authorize_resource
+  <%- else -%>
+  before_action :set_<%= singular_name %>, only: [:show, :edit, :destroy]
+  <%- end -%>
 
   def index
-    <% if !options[:use_cancan] %>@<%= plural_name %> = <%= class_name %>.all<% end %>
+    <%- if !options[:use_cancan] -%>
+    @<%= plural_name %> = <%= class_name %>.all
 
+    <%- end -%>
     respond_to do |format|
       format.html
       format.json
@@ -21,8 +27,10 @@ class <%= controller_class_name %>Controller < ApplicationController
   end
 
   def create
-    <% if !options[:use_cancan] %>@<%= singular_name %> = <%= class_name %>.new(<%= singular_name %>_params)<% end %>
-
+    <%- if !options[:use_cancan] -%>
+    @<%= singular_name %> = <%= class_name %>.new(<%= singular_name %>_params)
+    
+    <%- end -%>
     respond_to do |format|
       if @<%= singular_name %>.save
         format.json { render :show, status: :created, location: @<%= singular_name %> }
@@ -56,9 +64,11 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   private
 
-    <% if !options[:use_cancan] %>def set_<%= singular_name %>
+    <%- if !options[:use_cancan] -%>
+    def set_<%= singular_name %>
       @<%= singular_name %> = <%= class_name %>.find params[:id]
-    end<% end %>
+    end
+    <%- end -%>
 
     def <%= singular_name %>_params
       params.require(:<%= singular_name %>).permit(<%= editable_attributes.map{|attribute| ":#{attribute.name}"}.join(", ") %>)

@@ -5,17 +5,25 @@ const <%= plural_name.camelize %>Form = ({ <%= singular_name.camelize(:lower)%>I
 
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  <% editable_attributes.each do |attribute| %>
+  <%- editable_attributes.each do |attribute| -%>
   const [<%= attribute.name.camelize(:lower) %>, <%= "set#{attribute.name.camelize}" %>] = useState();
-  <% end %>
+  <%- end -%>
 
   const load<%= singular_name.camelize %> = () => {
     if (<%= singular_name.camelize(:lower)%>Id) {
+      <%- if options[:ajax_engine] == 'fetch' -%>
+      /* Fetch coming soon */
+      <%- end -%>
+      <%- if options[:ajax_engine] == 'jquery' -%>
       $.getJSON(`/<%= plural_name %>/${<%= singular_name.camelize(:lower)%>Id}`, (result) => {
         <% editable_attributes.each do |attribute| %><%= "set#{attribute.name.camelize}" %>(result.<%= attribute.name %>);
         <% end %>
         setLoading(false);
       });
+      <%- end -%>
+      <%- if options[:ajax_engine] == 'axios' -%>
+      /* Axios coming soon */
+      <%- end -%>
     } else {
       setLoading(false);
     }
@@ -23,10 +31,10 @@ const <%= plural_name.camelize %>Form = ({ <%= singular_name.camelize(:lower)%>I
 
   const handleSubmit = () => {
     setSubmitting(true);
-    <% if options[:ajax_engine] == 'fetch' %>
+    <%- if options[:ajax_engine] == 'fetch' -%>
     /* Fetch coming soon */
-    <% end %>
-    <% if options[:ajax_engine] == 'jquery' %>
+    <%- end -%>
+    <%- if options[:ajax_engine] == 'jquery' -%>
     let method = 'POST';
     let url = '/<%= plural_name %>';
     let redirectUrl = '/<%= plural_name%>';
@@ -42,8 +50,9 @@ const <%= plural_name.camelize %>Form = ({ <%= singular_name.camelize(:lower)%>I
       method,
       data: {
         <%= singular_name %>: {
-          <% editable_attributes.each do |attribute| %>
-          <%= attribute.name %>: <%= attribute.name.camelize(:lower) %>,<% end %>
+          <%- editable_attributes.each do |attribute| -%>
+          <%= attribute.name %>: <%= attribute.name.camelize(:lower) %>,
+          <%- end -%>
         }
       },
       dataType: 'JSON',
@@ -52,10 +61,10 @@ const <%= plural_name.camelize %>Form = ({ <%= singular_name.camelize(:lower)%>I
       },
       error: () => {}
     });
-    <% end %>
-    <% if options[:ajax_engine] == 'axios' %>
+    <%- end -%>
+    <%- if options[:ajax_engine] == 'axios' -%>
     /* Axios coming soon */
-    <% end %>
+    <%- end -%>
   };
 
   useEffect(() => {
@@ -69,12 +78,12 @@ const <%= plural_name.camelize %>Form = ({ <%= singular_name.camelize(:lower)%>I
           "Loading.."
         :
         <>
-          <% editable_attributes.each do |attribute| %>
+          <%- editable_attributes.each do |attribute| -%>
           <div className="field">
             <label><%= attribute.name.titleize %></label>
             <input type="text" value={<%= attribute.name.camelize(:lower) %>} onChange={(e) => set<%= attribute.name.camelize %>(e.target.value)} />
           </div>
-          <% end %>
+          <%- end -%>
           <div className="actions">
             <input type="submit" value={submitting ? 'Submitting...' : 'Submit'} onClick={handleSubmit} />
           </div>
