@@ -2,15 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import <%= plural_name.camelize %>Form from './<%= plural_name %>_form';
 
-const <%= plural_name.camelize %>NewPage = () => {
-
-  return (
-    <div>
-      <h1>New <%= singular_name %></h1>
-      <<%= plural_name.camelize %>Form />
-    </div>
-  );
-};
+const <%= plural_name.camelize %>NewPage = () => (
+  <div>
+    <h1>New <%= singular_name %></h1>
+    <<%= plural_name.camelize %>Form />
+  </div>
+);
 
 <%- if options['use_remount'] -%>
 /* REMOUNT COMING SOON */

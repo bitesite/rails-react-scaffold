@@ -2,15 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import <%= plural_name.camelize %>Form from './<%= plural_name %>_form';
 
-const <%= plural_name.camelize %>EditPage = ({ <%= singular_name.camelize(:lower)%>Id }) => {
-
-  return (
-    <div>
-      <h1>Editing <%= singular_name %> {<%= singular_name.camelize(:lower)%>Id}</h1>
-      <<%= plural_name.camelize %>Form <%= singular_name.camelize(:lower) %>Id={<%= singular_name.camelize(:lower)%>Id} />
-    </div>
-  );
-};
+const <%= plural_name.camelize %>EditPage = ({ <%= singular_name.camelize(:lower)%>Id }) => (
+  <div>
+    <h1>Editing <%= singular_name %> {<%= singular_name.camelize(:lower)%>Id}</h1>
+    <<%= plural_name.camelize %>Form <%= singular_name.camelize(:lower) %>Id={<%= singular_name.camelize(:lower)%>Id} />
+  </div>
+);
 
 <% if options['use_remount'] %>
 /* REMOUNT COMING SOON */

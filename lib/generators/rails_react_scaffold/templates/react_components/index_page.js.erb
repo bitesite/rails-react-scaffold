@@ -9,11 +9,24 @@ const <%= plural_name.camelize %>IndexPage = () => {
 
   const load<%= plural_name.camelize%> = () => {
     setLoading(true);
+    const url = '/<%= plural_name %>';
     <%- if options[:ajax_engine] == 'fetch' -%>
-    /* Fetch coming soon */
+    fetch(url, { headers: { Accept: 'application/json' } })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+        return undefined;
+      })
+      .then((responseJson) => {
+        if (responseJson) {
+          set<%= plural_name.camelize %>(responseJson);
+        }
+        setLoading(false);
+      });
     <%- end -%>
     <%- if options[:ajax_engine] == 'jquery' %>
-    $.getJSON('/<%= plural_name %>', (results) => {
+    $.getJSON(url, (results) => {
       set<%= plural_name.camelize %>(results);
       setLoading(false);
     });
@@ -24,19 +37,25 @@ const <%= plural_name.camelize %>IndexPage = () => {
   };
 
   const destroy = (<%= singular_name.camelize(:lower) %>Id) => {
-    if (confirm('Are you sure?')) {
+    if (window.confirm('Are you sure?')) {
       <%- if options[:ajax_engine] == 'fetch' -%>
-      /* Fetch coming soon */
+      const csrfToken = document.querySelector("[name='csrf-token']").content;
+
+      fetch(`/<%= plural_name %>/${<%= singular_name.camelize(:lower) %>Id}`, { method: 'DELETE', headers: { Accept: 'application/json', 'X-CSRF-Token': csrfToken } }).then((response) => {
+        if (response.status === 204) {
+          load<%= plural_name.camelize%>();
+        }
+      });
       <%- end -%>
       <%- if options[:ajax_engine] == 'jquery' -%>
-        $.ajax({
-          url: `/<%= plural_name %>/${<%= singular_name.camelize(:lower) %>Id}`,
-          method: 'DELETE',
-          success: () => {
-            load<%= plural_name.camelize%>();
-          },
-          error: () => {},
-        });
+      $.ajax({
+        url: `/<%= plural_name %>/${<%= singular_name.camelize(:lower) %>Id}`,
+        method: 'DELETE',
+        success: () => {
+          load<%= plural_name.camelize%>();
+        },
+        error: () => {},
+      });
       <%- end -%>
       <%- if options[:ajax_engine] == 'axios' -%>
       /* Axios coming soon */
