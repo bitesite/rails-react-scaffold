@@ -43,9 +43,9 @@ rails g rails_react_scaffold:controller MODEL_NAME
 |`component_dir`|string|The directory where the generated components will be placed|`app/javascript/components`|
 |`component_ext`|string|The file extension to use for generated react components. (js, jsx)|`js`|
 |`ajax_engine`|string|What you want to use to make your Ajax calls (fetch, jQuery, axios) **axios coming soon**|`fetch`|
-|`json_engine`|string|What to use to generate your JSON responses (jbuiler, rabl) **jbuilder coming soon**|`jbuilder`|
-|`use_cancan`|boolean|If you want to load and authorize resources through CanCan(Can).|`false`|
-|`use_remount`|boolean|**Coming soon** If you want to use Remount to mount your components.|`false`|
+|`json_engine`|string|What to use to generate your JSON responses (jbuiler, [rabl](https://github.com/nesquena/rabl)) **jbuilder coming soon**|`jbuilder`|
+|`use_cancan`|boolean|If you want to load and authorize resources through [CanCan(Can)](https://github.com/CanCanCommunity/cancancan).|`false`|
+|`use_remount`|boolean|If you want to use [Remount](https://github.com/rstacruz/remount) to mount your components.|`false`|
 |`use_webpacker`|boolean|If you want to use javascript_pack_tag to include your JS in your ERB files.|`false`|
 |`use_webpacker_chunks`|boolean|If you want use javascript_packs_with_chunks_tag to include your JS in your ERB files.|`false`|
 

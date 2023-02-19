@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+<%- if options['use_remount'] -%>
+import { define } from 'remount';
+<%- else -%>
+import ReactDOM from 'react-dom';
+<%- end -%>
+
 const <%= plural_name.camelize %>ShowPage = ({ <%= singular_name.camelize(:lower)%>Id }) => {
 
   const [loading, setLoading] = useState(true);
@@ -61,7 +67,7 @@ const <%= plural_name.camelize %>ShowPage = ({ <%= singular_name.camelize(:lower
 };
 
 <%- if options['use_remount'] -%>
-/* REMOUNT COMING SOON */
+define({ '<%= "#{plural_name.dasherize}-show-page" %>': <%= "#{plural_name.camelize}ShowPage" %> });
 <%- else -%>
 document.addEventListener('DOMContentLoaded', () => {
   const mountPoint = document.getElementById('<%= "#{plural_name}-show-page-mount-point" %>');

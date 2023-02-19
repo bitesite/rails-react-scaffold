@@ -1,6 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+<%- if options['use_remount'] -%>
+import { define } from 'remount';
+<%- else -%>
+import ReactDOM from 'react-dom';
+<%- end -%>
 
 const <%= plural_name.camelize %>IndexPage = () => {
 
@@ -109,7 +114,7 @@ const <%= plural_name.camelize %>IndexPage = () => {
 };
 
 <%- if options['use_remount'] -%>
-/* REMOUNT COMING SOON */
+define({ '<%= "#{plural_name.dasherize}-index-page" %>': <%= "#{plural_name.camelize}IndexPage" %> });
 <%- else -%>
 document.addEventListener('DOMContentLoaded', () => {
   const mountPoint = document.getElementById('<%= "#{plural_name}-index-page-mount-point" %>');

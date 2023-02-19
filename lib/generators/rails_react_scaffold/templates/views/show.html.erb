@@ -4,4 +4,8 @@
 <%- if options[:use_webpacker] -%>
 <%= "<%= javascript_pack_tag '#{plural_name}/#{plural_name}_show_page' %%>" %>
 <%- end -%>
+<%- if options['use_remount'] -%>
+<books-show-page props-json='{"<%= singular_name.camelize(:lower)%>Id": <%= "<%= @#{singular_name}.id  %%>" %>}'></books-show-page>
+<%- else -%>
 <div id="<%= "#{plural_name}-show-page-mount-point" %>" data-<%= singular_name.dasherize %>-id=<%= "<%= @#{singular_name}.id  %%>" %>></div>
+<%- end -%>
