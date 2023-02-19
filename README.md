@@ -56,6 +56,30 @@ rails g rails_react_scaffold:controller MODEL_NAME
 rails g rails_react_scaffold:controller Book --component_dir app/javascript/src --use_cancan --ajax_engine jquery --use_webpacker_chunks
 ```
 
+#### Example Use Case 1
+
+Setup
+
+- Rails 7 default
+- ESBuild
+- RABL
+- Remount
+- Book model already setup
+
+```
+rails g rails_react_scaffold:controller Book --json_engine rabl --component_dir app/javascript/components --component_ext jsx --use_remount
+```
+
+Then add the following to your `app/javascript/application.js`
+
+```
+import './components/books/books_edit_page';
+import './components/books/books_form';
+import './components/books/books_index_page';
+import './components/books/books_new_page';
+import './components/books/books_show_page';
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
