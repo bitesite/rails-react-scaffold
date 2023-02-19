@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## [0.2.0] - 2023-02-19
+
+- New Features
+  - Added support for Remount for mounting components.
+
 ## [0.1.1] - 2023-02-19
 
 - Bug Fixes
