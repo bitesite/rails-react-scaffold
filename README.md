@@ -2,7 +2,7 @@
 
 This gem will allow you create scaffold for Ruby on Rails applications that use React as their front end. It basically overrides the default Views in the rails scaffold generator to generate a mount point HTML file and an associated React component for all the default Rails views (index, show, new, edit).
 
-**Note: This gem is in its early days of development and right now only supports generating the views. Thus you have to have an existing model to use this. In the future, we will program an entire scaffold generator.**
+**Note: This gem is in its early days of development and right now only supports generating the CONTROLLERS and VIEWS. Thus you have to have an existing model to use this. In the future, we will program an entire scaffold generator or plug into the default rails generator.**
 
 ## Installation
 
