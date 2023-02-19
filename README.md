@@ -26,6 +26,12 @@ At this point, this generator only generates VIEWS and assumes a model is in pla
 
 ### Basic Usage
 
+#### Step 1
+
+Generate your Rails model however you want.
+
+#### Step 2
+
 ```
 rails g rails_react_scaffold:controller MODEL_NAME
 ```
@@ -47,7 +53,7 @@ rails g rails_react_scaffold:controller MODEL_NAME
 ### Example Usage
 
 ```
-rails g rails_react_scaffold:views Book --component_dir app/javascript/src
+rails g rails_react_scaffold:controller Book --component_dir app/javascript/src --use_cancan --ajax_engine jquery --use_webpacker_chunks
 ```
 
 ## Development
