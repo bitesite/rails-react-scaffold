@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-At this point, this generator only generates VIEWS and assumes a model is in place. So at this point, use the standard model generator that comes pre-built with Rails or code your own model, then use this generator.
+**At this point, this generator only generates a CONTROLLER and VIEWS and assumes a model is in place**. So at this point, use the standard model generator that comes pre-built with Rails or code your own model, then use this generator.
 
 ### Basic Usage
 
