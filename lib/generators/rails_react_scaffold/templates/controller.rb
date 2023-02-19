@@ -2,7 +2,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   <%- if options[:use_cancan] -%>
   load_and_authorize_resource
   <%- else -%>
-  before_action :set_<%= singular_name %>, only: [:show, :edit, :destroy]
+  before_action :set_<%= singular_name %>, only: [:show, :edit, :destroy, :update]
   <%- end -%>
 
   def index
